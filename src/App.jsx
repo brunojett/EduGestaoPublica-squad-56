@@ -1,5 +1,5 @@
 import Icone from "./components/Icone.jsx";
-import ListagemMatrizesScreen from "./pages/ListagemMatrizesScreen.jsx";
+import FilaSolicitacoesScreen from "./pages/FilaSolicitacoesScreen.js";
 
 const navegacao = [
   { nome: "Início", icone: "inicio" },
@@ -24,7 +24,7 @@ export default function App() {
           MC
         </div>
       </header>
-      <ListagemMatrizesScreen />
+      <FilaSolicitacoesScreen />
       <nav className="app-rodape" aria-label="Navegação do protótipo">
         {navegacao.map((item) => (
           <button

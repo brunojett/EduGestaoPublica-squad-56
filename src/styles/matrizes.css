@@ -1,0 +1,216 @@
+.matrizes-page {
+  width: 100%;
+  max-width: 764px;
+  padding: 38px 22px 24px;
+  margin: 0 auto;
+}
+.matrizes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+.matrizes-header__categoria {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  color: var(--cor-principal);
+  margin: 0 0 8px;
+}
+.matrizes-header h1 {
+  margin: 0;
+  font-size: 29px;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+.adicionar-matriz {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 13px;
+  background: var(--cor-principal);
+  color: white;
+  font-size: 29px;
+  line-height: 1;
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.filtro-curso {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 29px;
+}
+.filtro-curso label {
+  font-size: 13px;
+  font-weight: 600;
+}
+.filtro-curso select {
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 38px 12px 14px;
+  border: 1px solid #dce3ef;
+  border-radius: 12px;
+  color: var(--cor-texto);
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+.matrizes-contador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.matrizes-contador h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.matrizes-contador > span {
+  min-width: 28px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #eaf0fe;
+  color: var(--cor-principal);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.matrizes-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 13px;
+}
+.matriz-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 19px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 19px;
+  background: white;
+  color: var(--cor-texto);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.matriz-card:hover {
+  border-color: #b7c7f5;
+  box-shadow: 0 4px 16px #15284606;
+}
+.matriz-card:active {
+  background: #fafbff;
+}
+.matriz-card__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+.matriz-card__simbolo {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #edf2ff;
+  color: var(--cor-principal);
+}
+.matriz-card__simbolo .icone {
+  width: 21px;
+  height: 21px;
+}
+.matriz-card__seta {
+  color: #8c98aa;
+  width: 18px;
+  height: 18px;
+}
+.matriz-card__nome {
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.matriz-card__curso {
+  color: var(--cor-secundaria);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+.matriz-card__disciplinas {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid #eff2f7;
+  color: var(--cor-secundaria);
+  font-size: 12px;
+}
+.matriz-card__disciplinas .icone {
+  width: 17px;
+  height: 17px;
+}
+.matrizes-vazio {
+  min-height: 200px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 19px;
+  background: white;
+  text-align: center;
+}
+.matrizes-vazio__icone {
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 16px;
+  background: #f4f6fb;
+  color: var(--cor-secundaria);
+}
+.matrizes-vazio__icone .icone {
+  width: 28px;
+  height: 28px;
+}
+.matrizes-vazio p {
+  margin: 0;
+  color: var(--cor-secundaria);
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .matrizes-page {
+    padding-top: 27px;
+  }
+  .matrizes-header h1 {
+    font-size: 25px;
+  }
+  .matrizes-header {
+    margin-bottom: 25px;
+    gap: 12px;
+  }
+  .adicionar-matriz {
+    width: 42px;
+    height: 42px;
+  }
+  .matriz-card {
+    padding: 17px;
+  }
+}

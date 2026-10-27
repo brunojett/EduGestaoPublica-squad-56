@@ -1,5 +1,8 @@
 import React from "react";
+import FlatList from "../components/FlatList.jsx";
 import "../styles/fila-solicitacoes.css";
+
+const h = React.createElement;
 
 const propostas = [
   {
@@ -33,77 +36,95 @@ const propostas = [
 ];
 
 function PropostaCard({ proposta }) {
-  return React.createElement(
-    "li",
+  return h(
+    "article",
     { className: "solicitacao-card" },
-    React.createElement(
+    h(
       "div",
       { className: "solicitacao-card__cabecalho" },
-      React.createElement(
+      h(
         "span",
         { className: "solicitacao-card__indice", "aria-hidden": "true" },
         String(proposta.id).padStart(2, "0"),
       ),
-      React.createElement(
+      h(
         "time",
         { className: "solicitacao-card__data", dateTime: "2024-08-12" },
         proposta.data,
       ),
     ),
-    React.createElement(
+    h(
       "div",
       { className: "solicitacao-card__conteudo" },
-      React.createElement("h2", null, proposta.professor),
-      React.createElement(
-        "p",
-        { className: "solicitacao-card__tipo" },
-        proposta.tipo,
+      h(
+        "div",
+        { className: "solicitacao-card__titulo" },
+        h(
+          "div",
+          null,
+          h("h2", null, proposta.professor),
+          h("p", { className: "solicitacao-card__tipo" }, proposta.tipo),
+        ),
+        h("span", { className: "solicitacao-card__status" }, "Pendente"),
       ),
-      React.createElement(
+      h(
         "div",
         { className: "solicitacao-card__dados" },
-        React.createElement("span", null, "Dados solicitados"),
-        React.createElement("strong", null, proposta.dados),
+        h("span", null, "Dados solicitados"),
+        h("strong", null, proposta.dados),
       ),
     ),
   );
 }
 
+function ListaVazia() {
+  return h(
+    "section",
+    { className: "solicitacoes-vazia", "aria-live": "polite" },
+    h("span", { className: "solicitacoes-vazia__icone", "aria-hidden": "true" }, "—"),
+    h("p", null, "Nenhuma solicitação pendente"),
+  );
+}
+
 export default function FilaSolicitacoesScreen() {
-  return React.createElement(
+  return h(
     "main",
     { className: "fila-page", id: "conteudo-principal" },
-    React.createElement(
+    h(
       "header",
       { className: "fila-header" },
-      React.createElement(
+      h(
         "div",
         null,
-        React.createElement("p", { className: "fila-header__categoria" }, "GESTÃO ACADÊMICA"),
-        React.createElement("h1", null, "Solicitações pendentes"),
-        React.createElement(
+        h("p", { className: "fila-header__categoria" }, "GESTÃO ACADÊMICA"),
+        h("h1", null, "Solicitações pendentes"),
+        h(
           "p",
           { className: "fila-header__descricao" },
           "Acompanhe as propostas que aguardam análise.",
         ),
       ),
-      React.createElement(
+      h(
         "span",
-        { className: "fila-header__contador", "aria-label": "4 solicitações pendentes" },
-        "04",
+        {
+          className: "fila-header__contador",
+          "aria-label": `${propostas.length} solicitações pendentes`,
+        },
+        String(propostas.length).padStart(2, "0"),
       ),
     ),
-    React.createElement(
+    h(
       "p",
       { className: "fila-ordem" },
       "Ordenadas da mais antiga para a mais recente",
     ),
-    React.createElement(
-      "ol",
-      { className: "solicitacoes-lista", "aria-label": "Solicitações pendentes" },
-      propostas.map((proposta) =>
-        React.createElement(PropostaCard, { key: proposta.id, proposta }),
-      ),
-    ),
+    h(FlatList, {
+      data: propostas,
+      renderItem: ({ item }) => h(PropostaCard, { proposta: item }),
+      keyExtractor: (item) => item.id,
+      className: "solicitacoes-lista",
+      "aria-label": "Solicitações pendentes",
+      ListEmptyComponent: h(ListaVazia),
+    }),
   );
 }

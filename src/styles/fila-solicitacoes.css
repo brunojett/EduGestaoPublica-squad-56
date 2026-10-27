@@ -114,6 +114,25 @@
   line-height: 1.4;
 }
 
+.solicitacao-card__titulo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.solicitacao-card__status {
+  flex-shrink: 0;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #e8f7ef;
+  color: #16834d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
 .solicitacao-card__tipo {
   margin: 4px 0 14px;
   color: var(--cor-principal);
@@ -144,6 +163,36 @@
   font-weight: 500;
 }
 
+.solicitacoes-vazia {
+  min-height: 200px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 19px;
+  background: white;
+  color: var(--cor-secundaria);
+  text-align: center;
+}
+
+.solicitacoes-vazia__icone {
+  display: grid;
+  width: 55px;
+  height: 55px;
+  place-items: center;
+  border-radius: 16px;
+  background: #f4f6fb;
+  font-size: 24px;
+}
+
+.solicitacoes-vazia p {
+  margin: 0;
+  font-size: 14px;
+}
+
 @media (max-width: 600px) {
   .fila-page {
     padding-top: 27px;
@@ -166,5 +215,10 @@
   .solicitacao-card__indice {
     width: 37px;
     height: 37px;
+  }
+
+  .solicitacao-card__titulo {
+    flex-direction: column;
+    gap: 8px;
   }
 }

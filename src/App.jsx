@@ -1,3 +1,4 @@
+import RegistroFrequencia from './RegistroFrequencia';
 import Icone from "./components/Icone.jsx";
 import ListagemMatrizesScreen from "./pages/ListagemMatrizesScreen.jsx";
 
@@ -24,7 +25,7 @@ export default function App() {
           MC
         </div>
       </header>
-      <ListagemMatrizesScreen />
+      <RegistroFrequencia />
       <nav className="app-rodape" aria-label="Navegação do protótipo">
         {navegacao.map((item) => (
           <button

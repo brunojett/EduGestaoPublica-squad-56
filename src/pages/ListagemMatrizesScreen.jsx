@@ -22,7 +22,7 @@ export default function ListagemMatrizesScreen() {
           type="button"
           className="adicionar-matriz"
           disabled
-          aria-label="Adicionar matriz indisponível"
+          aria-label="Adicionar matriz indisponível - SEED"
           title="Cadastro de matrizes indisponível nesta entrega"
         >
           +

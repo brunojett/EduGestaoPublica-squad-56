@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGestão Pública - Matrizes Curriculares</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#e6f3f0',
+              100: '#cce7e1',
+              500: '#0d4738',
+              600: '#0a3a2e',
+              700: '#072b22',
+            },
+            appBg: '#eef3f2',
+            cardBg: '#ffffff',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    /* Animações dos Cards */
+    .card-enter {
+      animation: slideIn 0.25s ease-out forwards;
+    }
+    .card-exit {
+      animation: slideOut 0.25s ease-in forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideOut {
+      from { opacity: 1; transform: scale(1); max-height: 120px; margin-bottom: 12px; }
+      to { opacity: 0; transform: scale(0.95); max-height: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-appBg min-h-screen font-sans text-slate-800 antialiased selection:bg-brand-500 selection:text-white flex flex-col lg:flex-row">
+
+  <!-- BARRA LATERAL (DESKTOP NAVBAR) -->
+  <aside class="w-full lg:w-64 bg-brand-500 text-white flex-shrink-0 flex flex-col justify-between p-4 lg:p-6 shadow-lg">
+    <div>
+      <!-- Marca e Nome do Sistema -->
+      <div class="flex items-center space-x-3 mb-6 lg:mb-10">
+        <div class="w-10 h-10 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-sm">
+          <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight tracking-wide">EduGestão</h1>
+          <span class="text-xs text-brand-100 font-medium tracking-wider uppercase block">Pública</span>
+        </div>
+      </div>
+
+      <!-- Links de Navegação -->
+      <nav class="space-y-1">
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl bg-white/10 text-white font-semibold transition-all">
+          <i data-lucide="book-open" class="w-5 h-5"></i>
+          <span class="text-sm">Matrizes Curriculares</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-brand-100 hover:bg-white/5 hover:text-white font-medium transition-all">
+          <i data-lucide="users" class="w-5 h-5"></i>
+          <span class="text-sm">Turmas & Alunos</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-brand-100 hover:bg-white/5 hover:text-white font-medium transition-all">
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          <span class="text-sm">Relatórios</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-brand-100 hover:bg-white/5 hover:text-white font-medium transition-all">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+          <span class="text-sm">Configurações</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Perfil do Usuário / Rodapé Sidebar -->
+    <div class="hidden lg:flex items-center space-x-3 pt-6 border-t border-white/10">
+      <div class="w-9 h-9 bg-brand-600 rounded-full flex items-center justify-center font-bold text-sm text-brand-100">
+        GA
+      </div>
+      <div class="min-w-0 flex-1">
+        <p class="text-xs font-semibold text-white truncate">Gestão Acadêmica</p>
+        <p class="text-[11px] text-brand-100 truncate">Secretaria de Educação</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-10 space-y-6">
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/60">
+      <div>
+        <span class="text-xs font-bold tracking-wider text-slate-400 uppercase block mb-1">
+          EduGestão Pública &bull; Módulo Acadêmico
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
+          Matrizes Curriculares
+        </h2>
+      </div>
+
+      <!-- Botão Adicionar (+ Nova Matriz) -->
+      <button 
+        id="openAddModalBtn"
+        aria-label="Adicionar Nova Matriz"
+        class="inline-flex items-center justify-center space-x-2 bg-brand-500 hover:bg-brand-600 active:scale-95 transition-all text-white px-5 py-3 rounded-2xl shadow-md shadow-brand-500/20 font-semibold text-sm"
+      >
+        <i data-lucide="plus" class="w-5 h-5 stroke-[2.5]"></i>
+        <span>Nova Matriz</span>
+      </button>
+    </header>
+
+    <!-- PAINEL DE CONTROLES (FILTROS E CONTADOR) -->
+    <section class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-200/70">
+      
+      <!-- Select de Filtros -->
+      <div class="sm:col-span-8 lg:col-span-6 space-y-1">
+        <label for="categoryFilter" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
+          Filtrar por curso / modalidade
+        </label>
+        <div class="relative">
+          <select 
+            id="categoryFilter"
+            class="w-full bg-slate-50 text-slate-700 font-medium py-3 px-4 pr-10 rounded-xl border border-slate-200 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all cursor-pointer text-sm"
+          >
+            <option value="todos">Todos os cursos</option>
+            <option value="Ensino Médio">Ensino Médio</option>
+            <option value="Ensino Fundamental II">Ensino Fundamental II</option>
+            <option value="Educação de Jovens e Adultos">Educação de Jovens e Adultos</option>
+            <option value="Ensino Médio Integral">Ensino Médio Integral</option>
+          </select>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-brand-500">
+            <i data-lucide="chevron-down" class="w-5 h-5 stroke-[2.5]"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contador de Itens -->
+      <div class="sm:col-span-4 lg:col-span-6 flex sm:justify-end items-center pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+        <div class="flex items-center space-x-2 bg-brand-50 px-4 py-2 rounded-xl">
+          <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider">Matrizes Cadastradas:</span>
+          <span 
+            id="counter"
+            class="text-base font-bold text-brand-500 min-w-[24px] text-center"
+          >
+            6
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA E GRID DE CARDS -->
+    <section id="coursesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Cards renderizados dinamicamente via JS -->
+    </section>
+
+    <!-- ESTADO VAZIO (EMPTY STATE) -->
+    <section id="emptyState" class="hidden flex-col items-center justify-center py-16 px-4 text-center bg-white rounded-3xl border border-dashed border-slate-200 shadow-sm">
+      <div class="w-16 h-16 bg-brand-50 text-brand-500 rounded-full flex items-center justify-center mb-4">
+        <i data-lucide="folder-open" class="w-8 h-8 stroke-[1.5]"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-1">Nenhuma matriz cadastrada</h3>
+      <p class="text-sm text-slate-500 max-w-sm mb-6">
+        Não foram encontrados itens para o filtro selecionado ou todas as matrizes foram desativadas.
+      </p>
+      <button 
+        id="restoreBtn"
+        class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 active:scale-95 text-white font-semibold text-sm rounded-xl transition-all shadow-sm inline-flex items-center gap-2"
+      >
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        Restaurar Lista Inicial
+      </button>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE CADASTRO -->
+  <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-opacity duration-200 opacity-0">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl transform transition-transform duration-300 translate-y-4">
+      <div class="flex justify-between items-center mb-5 border-b pb-3">
+        <h3 class="text-lg font-bold text-slate-800">Cadastrar Nova Matriz</h3>
+        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      
+      <form id="addCourseForm" class="space-y-4">
+        <div>
+          <label for="courseTitleInput" class="block text-sm font-semibold text-slate-700 mb-1">Nome da Matriz</label>
+          <input 
+            type="text" 
+            id="courseTitleInput" 
+            required
+            placeholder="Ex: Matriz 2026 — 3º ano"
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+          />
+        </div>
+
+        <div>
+          <label for="courseCategoryInput" class="block text-sm font-semibold text-slate-700 mb-1">Categoria / Modalidade</label>
+          <select 
+            id="courseCategoryInput" 
+            required
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+          >
+            <option value="Ensino Médio">Ensino Médio</option>
+            <option value="Ensino Fundamental II">Ensino Fundamental II</option>
+            <option value="Educação de Jovens e Adultos">Educação de Jovens e Adultos</option>
+            <option value="Ensino Médio Integral">Ensino Médio Integral</option>
+          </select>
+        </div>
+
+        <div class="pt-4 flex gap-3">
+          <button 
+            type="button" 
+            id="cancelModalBtn"
+            class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-all"
+          >
+            Cancelar
+          </button>
+          <button 
+            type="submit" 
+            class="flex-1 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl text-sm shadow-md transition-all"
+          >
+            Salvar Matriz
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- LÓGICA EM JAVASCRIPT -->
+  <script>
+    // Base de dados inicial
+    const initialCourses = [
+      { id: '1', title: 'Matriz 2025 — 1º ano', category: 'Ensino Médio' },
+      { id: '2', title: 'Matriz 2025 — 2º ano', category: 'Ensino Médio' },
+      { id: '3', title: 'Matriz Regular — 6º ano', category: 'Ensino Fundamental II' },
+      { id: '4', title: 'Matriz Regular — 7º ano', category: 'Ensino Fundamental II' },
+      { id: '5', title: 'Formação Geral Básica', category: 'Educação de Jovens e Adultos' },
+      { id: '6', title: 'Matriz Integral — 1º ano', category: 'Ensino Médio Integral' }
+    ];
+
+    // Estado da Aplicação
+    let courses = [...initialCourses];
+
+    // Referências DOM
+    const coursesList = document.getElementById('coursesList');
+    const emptyState = document.getElementById('emptyState');
+    const counter = document.getElementById('counter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const restoreBtn = document.getElementById('restoreBtn');
+
+    // Modal
+    const addModal = document.getElementById('addModal');
+    const openAddModalBtn = document.getElementById('openAddModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+    const addCourseForm = document.getElementById('addCourseForm');
+
+    // Renderizar Lista de Cards
+    function renderCourses() {
+      const selectedFilter = categoryFilter.value;
+      const filteredCourses = selectedFilter === 'todos' 
+        ? courses 
+        : courses.filter(c => c.category === selectedFilter);
+
+      // Atualiza o contador de itens visíveis
+      counter.textContent = filteredCourses.length;
+
+      // Estado Vazio
+      if (filteredCourses.length === 0) {
+        coursesList.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        emptyState.classList.add('flex');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      emptyState.classList.remove('flex');
+
+      coursesList.innerHTML = '';
+
+      filteredCourses.forEach((course) => {
+        const card = document.createElement('div');
+        card.id = `course-card-${course.id}`;
+        card.className = "card-enter bg-cardBg p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition-all duration-200";
+
+        card.innerHTML = `
+          <div class="flex items-center space-x-3.5 min-w-0">
+            <div class="w-11 h-11 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-500">
+              <i data-lucide="file-text" class="w-5 h-5 stroke-[2]"></i>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-bold text-slate-800 text-[14px] leading-snug truncate pr-2">
+                ${course.title}
+              </h3>
+              <span class="inline-block mt-1 bg-slate-100 text-slate-500 text-[11px] font-medium px-2.5 py-0.5 rounded-full">
+                ${course.category}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-1 flex-shrink-0">
+            <button 
+              onclick="removeCourse('${course.id}')"
+              title="Desativar matriz"
+              aria-label="Desativar matriz ${course.title}"
+              class="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+            >
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+            <div class="p-2 text-slate-300 group-hover:text-slate-400 transition-colors cursor-pointer">
+              <i data-lucide="chevron-right" class="w-5 h-5 stroke-[2.5]"></i>
+            </div>
+          </div>
+        `;
+
+        coursesList.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Remover/Desativar Curso
+    window.removeCourse = function(id) {
+      const cardElement = document.getElementById(`course-card-${id}`);
+      if (cardElement) {
+        cardElement.classList.remove('card-enter');
+        cardElement.classList.add('card-exit');
+        
+        setTimeout(() => {
+          courses = courses.filter(course => course.id !== id);
+          renderCourses();
+        }, 250);
+      }
+    };
+
+    // Filtro
+    categoryFilter.addEventListener('change', renderCourses);
+
+    // Restaurar Lista Padrão
+    restoreBtn.addEventListener('click', () => {
+      courses = [...initialCourses];
+      categoryFilter.value = 'todos';
+      renderCourses();
+    });
+
+    // Funções Modal
+    function openModal() {
+      addModal.classList.remove('hidden');
+      addModal.classList.add('flex');
+      setTimeout(() => {
+        addModal.classList.remove('opacity-0');
+        addModal.querySelector('div').classList.remove('translate-y-4');
+      }, 10);
+    }
+
+    function closeModal() {
+      addModal.classList.add('opacity-0');
+      addModal.querySelector('div').classList.add('translate-y-4');
+      setTimeout(() => {
+        addModal.classList.add('hidden');
+        addModal.classList.remove('flex');
+        addCourseForm.reset();
+      }, 200);
+    }
+
+    openAddModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelModalBtn.addEventListener('click', closeModal);
+
+    // Adicionar Novo Item
+    addCourseForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('courseTitleInput').value.trim();
+      const category = document.getElementById('courseCategoryInput').value;
+
+      if (title) {
+        const newCourse = {
+          id: Date.now().toString(),
+          title,
+          category
+        };
+        courses.unshift(newCourse);
+        renderCourses();
+        closeModal();
+      }
+    });
+
+    // Inicializar na Carga da Página
+    window.onload = function() {
+      lucide.createIcons();
+      renderCourses();
+    };
+  </script>
+</body>
+</html>

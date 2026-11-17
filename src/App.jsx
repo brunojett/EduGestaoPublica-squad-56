@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import FormularioTurmaScreen from "./pages/FormularioTurmaScreen.jsx";
 import Icone from "./components/Icone.jsx";
 import ListagemMatrizesScreen from "./pages/ListagemMatrizesScreen.jsx";
 
@@ -9,6 +11,7 @@ const navegacao = [
 ];
 
 export default function App() {
+  const [tela, setTela] = useState("matrizes");
   return (
     <div className="app-shell">
       <header className="app-header">
@@ -24,7 +27,17 @@ export default function App() {
           MC
         </div>
       </header>
-      <ListagemMatrizesScreen />
+      <nav className="turma-navegacao" aria-label="Gestão acadêmica">
+        <button type="button" aria-current={tela === "matrizes" ? "page" : undefined}
+          onClick={() => setTela("matrizes")}>Matrizes curriculares</button>
+        <button type="button" aria-current={tela === "turma" ? "page" : undefined}
+          onClick={() => setTela("turma")}>Cadastrar turma</button>
+      </nav>
+      {tela === "turma" ? (
+        <FormularioTurmaScreen onCancelar={() => setTela("matrizes")} />
+      ) : (
+        <ListagemMatrizesScreen />
+      )}
       <nav className="app-rodape" aria-label="Navegação do protótipo">
         {navegacao.map((item) => (
           <button

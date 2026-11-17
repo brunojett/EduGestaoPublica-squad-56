@@ -1,0 +1,28 @@
+.turma-navegacao { max-width: 900px; margin: 24px auto 0; padding: 0 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+.turma-navegacao button, .turma-page button { cursor: pointer; font: inherit; min-height: 44px; }
+.turma-navegacao button { background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 16px; color: #152846; }
+.turma-navegacao button[aria-current="page"] { background: #2457e3; border-color: #2457e3; color: white; }
+.turma-page { max-width: 900px; margin: 32px auto; padding: 0 24px; }
+.turma-page h1 { margin: 8px 0; font-size: clamp(24px, 4vw, 32px); }
+.turma-page p { line-height: 1.6; }
+.turma-categoria { color: #2457e3; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+.turma-demo { color: #526078; font-size: 14px; }
+.turma-form { background: white; border: 1px solid #e5eaf2; border-radius: 16px; padding: 28px; }
+.turma-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.turma-campo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.turma-campo label, .turma-dias legend { font-weight: 600; }
+.turma-campo input, .turma-campo select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid #aab7ca; border-radius: 8px; background: white; color: #152846; font: inherit; }
+.turma-campo [aria-invalid="true"] { border-color: #b42318; }
+.turma-page :is(input, select, button):focus-visible { outline: 3px solid #2457e3; outline-offset: 3px; }
+.turma-erro { color: #b42318; font-size: 14px; }
+.turma-sucesso { color: #146438; background: #e9f8ef; border: 1px solid #91cfaa; padding: 14px 18px; border-radius: 8px; }
+.turma-dias { margin: 28px 0 0; padding: 0; border: 0; min-width: 0; }
+.turma-dias p { margin: 8px 0 12px; color: #526078; font-size: 14px; }
+.turma-dias-botoes { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+.turma-dias button { min-width: 60px; padding: 10px 16px; background: white; color: #152846; border: 1px solid #aab7ca; border-radius: 8px; }
+.turma-dias button[aria-pressed="true"] { background: #2457e3; border-color: #2457e3; color: white; font-weight: 700; }
+.turma-acoes { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5eaf2; }
+.turma-acoes button { padding: 12px 24px; border-radius: 8px; }
+.turma-cancelar { border: 1px solid #aab7ca; color: #152846; background: white; }
+.turma-salvar { border: 1px solid #2457e3; color: white; background: #2457e3; }
+@media (max-width: 600px) { .turma-grade { grid-template-columns: 1fr; } .turma-form { padding: 20px; } .turma-page { padding: 0 16px; } .turma-acoes button { flex: 1; } }

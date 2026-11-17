@@ -1,0 +1,310 @@
+
+.cadastro-turma {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 30px 0;
+  color: #243247;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cadastro-turma * {
+  box-sizing: border-box;
+}
+
+.cadastro-turma h1,
+.cadastro-turma h2,
+.cadastro-turma p {
+  margin-top: 0;
+}
+
+.cadastro-turma h1 {
+  margin-bottom: 0;
+  font-size: 27px;
+}
+
+.cadastro-turma h2 {
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+.turma-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.turma-logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #dff5f2;
+  color: #008b91;
+  font-weight: bold;
+}
+
+.turma-identificacao {
+  display: block;
+  margin-bottom: 6px;
+  color: #008b91;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.turma-etiqueta {
+  margin-left: auto;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: #e5eaf2;
+  color: #526176;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.turma-card {
+  margin-bottom: 20px;
+  padding: 28px;
+  border: 1px solid #e1e7ef;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgb(20 38 68 / 4%);
+}
+
+.turma-titulo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.turma-titulo p,
+.turma-dias p {
+  margin-bottom: 0;
+  color: #718096;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.turma-obrigatorio {
+  color: #718096;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.turma-grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.turma-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.turma-campo input,
+.turma-campo select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #d4dce7;
+  border-radius: 8px;
+  background: #fff;
+  color: #243247;
+  font: inherit;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.turma-campo input:focus,
+.turma-campo select:focus {
+  border-color: #008f95;
+  outline: 2px solid rgb(0 143 149 / 15%);
+}
+
+.turma-dias {
+  margin: 26px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.turma-dias legend {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.turma-lista-dias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.turma-dia {
+  min-width: 62px;
+  padding: 10px 14px;
+  border: 1px solid #d4dce7;
+  border-radius: 8px;
+  background: #fff;
+  color: #4b596b;
+  cursor: pointer;
+}
+
+.turma-dia:hover {
+  border-color: #008f95;
+}
+
+.turma-dia.ativo {
+  border-color: #008f95;
+  background: #e0f6f3;
+  color: #00777c;
+  font-weight: bold;
+}
+
+.turma-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #edf0f5;
+}
+
+.turma-botao {
+  min-height: 43px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.turma-botao-secundario {
+  border-color: #d4dce7;
+  background: #fff;
+  color: #4b596b;
+}
+
+.turma-botao-principal {
+  background: #008f95;
+  color: white;
+}
+
+.turma-botao-principal:hover {
+  background: #00777c;
+}
+
+.turma-mensagem {
+  margin-bottom: 20px;
+  padding: 13px 15px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.turma-erro {
+  border: 1px solid #f0c3c7;
+  background: #fff1f2;
+  color: #a52e38;
+}
+
+.turma-sucesso {
+  border: 1px solid #b9e7d0;
+  background: #effcf5;
+  color: #18794e;
+}
+
+.turma-listagem {
+  margin-top: 20px;
+}
+
+.turma-contador {
+  padding: 7px 11px;
+  border-radius: 20px;
+  background: #edf2f7;
+  color: #526176;
+  font-size: 12px;
+}
+
+.turma-vazio {
+  padding: 30px 12px;
+  border: 1px dashed #d4dce7;
+  border-radius: 9px;
+  color: #718096;
+  font-size: 13px;
+  text-align: center;
+}
+
+.turma-tabela-container {
+  overflow-x: auto;
+}
+
+.turma-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.turma-tabela th {
+  padding: 12px 10px;
+  background: #f6f8fb;
+  color: #64748b;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.turma-tabela td {
+  padding: 14px 10px;
+  border-bottom: 1px solid #edf0f5;
+  line-height: 1.5;
+  vertical-align: top;
+}
+
+.turma-rodape {
+  padding-top: 10px;
+  color: #8995a6;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 650px) {
+  .cadastro-turma {
+    width: calc(100% - 20px);
+    padding-top: 18px;
+  }
+
+  .turma-card {
+    padding: 20px 16px;
+  }
+
+  .turma-grade {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .turma-titulo {
+    flex-direction: column;
+  }
+
+  .turma-acoes {
+    flex-direction: column-reverse;
+  }
+
+  .turma-botao {
+    width: 100%;
+  }
+
+  .turma-dia {
+    flex: 1;
+    min-width: 48px;
+  }
+}

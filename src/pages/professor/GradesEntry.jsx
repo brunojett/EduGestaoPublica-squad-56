@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Award, Save, CheckCircle2, AlertCircle, Calculator } from 'lucide-react';
 import { useAcademic } from '../../context/AcademicContext';
 import StatCard from '../../components/common/StatCard';
+import StudentReportModal from '../../components/common/StudentReportModal';
 
 /**
  * ============================================================================
@@ -16,6 +17,7 @@ export default function GradesEntry() {
   const [selectedClassId, setSelectedClassId] = useState(classes[0]?.id || 'tur-1');
   const [selectedDiscId, setSelectedDiscId] = useState(disciplines[2]?.id || 'disc-3');
   const [selectedUnit, setSelectedUnit] = useState('u4');
+  const [reportStudent, setReportStudent] = useState(null);
 
   const classStudents = students.filter((s) => s.classId === selectedClassId);
 
@@ -179,6 +181,7 @@ export default function GradesEntry() {
                 <th style={{ textAlign: 'center' }}>Recuperação (REC)</th>
                 <th style={{ textAlign: 'center' }}>Média da Unidade</th>
                 <th>Situação Pedagógica</th>
+                <th>Boletim</th>
               </tr>
             </thead>
             <tbody>
@@ -275,6 +278,15 @@ export default function GradesEntry() {
                         </span>
                       )}
                     </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-outline btn-sm"
+                        onClick={() => setReportStudent(stu)}
+                      >
+                        Ver Boletim Completo
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -282,6 +294,14 @@ export default function GradesEntry() {
           </table>
         </div>
       </section>
+
+      {reportStudent && (
+        <StudentReportModal
+          student={reportStudent}
+          calculateUnitAverage={calculateUnitAverage}
+          onClose={() => setReportStudent(null)}
+        />
+      )}
     </div>
   );
 }

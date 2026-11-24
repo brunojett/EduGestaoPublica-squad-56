@@ -92,8 +92,9 @@ export default function AttendanceDiary() {
   };
 
   // Resumo rápido da chamada atual
-  const presentToday = classStudents.filter((s) => getStudentStatus(s.id) !== 'F').length;
+  const presentToday = classStudents.filter((s) => getStudentStatus(s.id) === 'P').length;
   const absentToday = classStudents.filter((s) => getStudentStatus(s.id) === 'F').length;
+  const justifiedToday = classStudents.filter((s) => getStudentStatus(s.id) === 'FJ').length;
 
   return (
     <div className="page-container">
@@ -110,9 +111,12 @@ export default function AttendanceDiary() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <span className="badge badge-green">Presentes hoje: {presentToday}</span>
-          <span className="badge badge-danger">Faltas hoje: {absentToday}</span>
+        <div role="status" aria-live="polite" aria-atomic="true" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <span className="badge badge-green">Presentes: {presentToday}</span>
+          <span aria-hidden="true">·</span>
+          <span className="badge badge-danger">Faltas: {absentToday}</span>
+          <span aria-hidden="true">·</span>
+          <span className="badge badge-gold">Justificadas: {justifiedToday}</span>
         </div>
       </div>
 

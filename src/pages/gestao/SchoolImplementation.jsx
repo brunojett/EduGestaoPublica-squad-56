@@ -333,7 +333,7 @@ export default function SchoolImplementation() {
                               {mat.code} — {mat.name}
                             </div>
                             <div style={{ fontSize: '0.74rem', color: 'var(--seduc-text-secondary)' }}>
-                              Curso: {course?.name} • {mat.ordinanceNumber}
+                              Curso: {course?.name || 'Curso indisponível'} • {mat.ordinanceNumber || 'Sem portaria vinculada'}
                             </div>
                           </div>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Landmark, Building2, BookOpenCheck, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAcademic } from '../../context/AcademicContext';
+import { routes } from '../../routes';
 
 /**
  * Cabeçalho principal com a identidade visual da SEDUC Sergipe
@@ -9,8 +11,9 @@ import { useAcademic } from '../../context/AcademicContext';
  * 2. ADM (Gestão Acadêmica)
  * 3. Professor (Diário Eletrônico)
  */
-export default function Header() {
-  const { activeRole, switchRole, exceptionalRequests, matrices } = useAcademic();
+export default function Header({ activeRole }) {
+  const { exceptionalRequests, matrices } = useAcademic();
+  const navigate = useNavigate();
 
   const pendingRequestsCount = exceptionalRequests.filter((r) => r.status === 'Pendente').length;
   const pendingMatricesCount = matrices.filter((m) => !m.authorizedByDies).length;
@@ -44,7 +47,7 @@ export default function Header() {
           <button
             type="button"
             className={`role-tab-btn ${activeRole === 'DIES' ? 'active' : ''}`}
-            onClick={() => switchRole('DIES')}
+            onClick={() => navigate(routes.DIES.overview)}
           >
             <Landmark size={15} />
             <span>ADM • DIES</span>
@@ -58,7 +61,7 @@ export default function Header() {
           <button
             type="button"
             className={`role-tab-btn ${activeRole === 'GESTAO' ? 'active' : ''}`}
-            onClick={() => switchRole('GESTAO')}
+            onClick={() => navigate(routes.GESTAO.school)}
           >
             <Building2 size={15} />
             <span>ADM • Gestão Acadêmica</span>
@@ -72,7 +75,7 @@ export default function Header() {
           <button
             type="button"
             className={`role-tab-btn ${activeRole === 'PROFESSOR' ? 'active' : ''}`}
-            onClick={() => switchRole('PROFESSOR')}
+            onClick={() => navigate(routes.PROFESSOR.attendance)}
           >
             <BookOpenCheck size={15} />
             <span>Professor • Diário</span>

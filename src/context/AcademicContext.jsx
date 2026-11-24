@@ -27,9 +27,6 @@ const AcademicContext = createContext(null);
 const STORAGE_KEY = '@seed_sergipe_academico_v1';
 
 export function AcademicProvider({ children }) {
-  // 1. Perfil ativo: 'DIES' | 'GESTAO' | 'PROFESSOR'
-  const [activeRole, setActiveRole] = useState('DIES');
-  const [activeTab, setActiveTab] = useState('dies-overview');
   const [activeTeacherId, setActiveTeacherId] = useState('prof-1');
   const [highContrast, setHighContrast] = useState(false);
   const [toast, setToast] = useState(null);
@@ -108,14 +105,6 @@ export function AcademicProvider({ children }) {
     }, 4000);
   };
 
-  // Troca o perfil ativo e posiciona na primeira tela correspondente
-  const switchRole = (newRole) => {
-    setActiveRole(newRole);
-    if (newRole === 'DIES') setActiveTab('dies-overview');
-    if (newRole === 'GESTAO') setActiveTab('gestao-school');
-    if (newRole === 'PROFESSOR') setActiveTab('prof-attendance');
-  };
-
   // ==========================================================================
   // AÇÕES DO MÓDULO 1: ADM — DIES (Inspeção Escolar e Normatização)
   // ==========================================================================
@@ -186,17 +175,16 @@ export function AcademicProvider({ children }) {
     );
   };
 
-  const toggleMatrixAuthorization = (matrixId, ordinanceNumber) => {
+  const toggleMatrixAuthorization = (matrixId) => {
     setMatrices((prev) =>
       prev.map((m) => {
         if (m.id !== matrixId) return m;
-        const nextStatus = !m.authorizedByDies;
         return {
           ...m,
-          authorizedByDies: nextStatus,
-          ordinanceNumber: nextStatus
-            ? ordinanceNumber || m.ordinanceNumber || 'Portaria SEDUC/DIES nº 215/2026'
-            : 'Em Tramitação na DIES',
+          authorizedByDies: !m.authorizedByDies,
+          ordinanceNumber: m.ordinanceNumber === 'Em Tramitação na DIES'
+            ? ordinances[0]?.number || ''
+            : m.ordinanceNumber,
         };
       })
     );
@@ -207,6 +195,11 @@ export function AcademicProvider({ children }) {
   // AÇÕES DO MÓDULO 2: ADM — GESTÃO ACADÊMICA (Secretaria / Coordenação)
   // ==========================================================================
   const implementMatrixInSchool = (schoolId, matrixId) => {
+    if (!matrices.some((matrix) => matrix.id === matrixId && matrix.authorizedByDies)) {
+      showToast('A matriz precisa ser homologada pela DIES.', 'warning');
+      return;
+    }
+
     setSchools((prev) =>
       prev.map((school) => {
         if (school.id !== schoolId) return school;
@@ -471,11 +464,6 @@ export function AcademicProvider({ children }) {
   };
 
   const value = {
-    activeRole,
-    setActiveRole,
-    switchRole,
-    activeTab,
-    setActiveTab,
     activeTeacherId,
     setActiveTeacherId,
     highContrast,

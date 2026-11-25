@@ -433,6 +433,7 @@ body.high-contrast .sidebar-profile-role {
   justify-content: space-between;
   gap: 0.65rem;
   text-align: left;
+  text-decoration: none;
   transition: all 0.18s ease;
 }
 

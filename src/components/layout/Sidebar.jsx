@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   FileBadge,
   BookCopy,
@@ -13,16 +14,14 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { useAcademic } from '../../context/AcademicContext';
+import { routes } from '../../routes';
 
 /**
  * Menu lateral dinâmico que exibe as funcionalidades específicas
  * de acordo com o perfil de usuário ativo (DIES, Gestão Acadêmica ou Professor).
  */
-export default function Sidebar() {
+export default function Sidebar({ activeRole }) {
   const {
-    activeRole,
-    activeTab,
-    setActiveTab,
     activeTeacherId,
     setActiveTeacherId,
     teachers,
@@ -43,23 +42,23 @@ export default function Sidebar() {
       unit: 'Autorização de Escolas, Portarias e Matrizes',
       items: [
         {
-          id: 'dies-overview',
+          path: routes.DIES.overview,
           label: 'Portarias & Unidades Escolares',
           icon: FileBadge,
         },
         {
-          id: 'dies-courses',
+          path: routes.DIES.courses,
           label: 'Cursos & Disciplinas',
           icon: BookCopy,
         },
         {
-          id: 'dies-matrices',
+          path: routes.DIES.matrices,
           label: 'Matrizes Curriculares',
           icon: Layers,
           badgeCount: pendingMatrices > 0 ? `${pendingMatrices} pend.` : null,
         },
         {
-          id: 'dies-requests',
+          path: routes.DIES.requests,
           label: 'Análise de Aulas Excepcionais',
           icon: Gavel,
           badgeCount: pendingRequests > 0 ? pendingRequests : null,
@@ -72,23 +71,23 @@ export default function Sidebar() {
       unit: 'Implementação Escolar, Turmas e Alocação',
       items: [
         {
-          id: 'gestao-school',
+          path: routes.GESTAO.school,
           label: 'Implementar Escola & Calendário',
           icon: CalendarRange,
         },
         {
-          id: 'gestao-classes',
+          path: routes.GESTAO.classes,
           label: 'Turmas, Vagas e Horários',
           icon: UsersRound,
         },
         {
-          id: 'gestao-allocation',
+          path: routes.GESTAO.allocation,
           label: 'Distribuição de Professores',
           icon: UserCheck,
           badgeCount: idleTeachers > 0 ? `${idleTeachers} ociosos` : 'OK',
         },
         {
-          id: 'gestao-requests',
+          path: routes.GESTAO.requests,
           label: 'Deferimento de Aulas Excepcionais',
           icon: Gavel,
           badgeCount: pendingRequests > 0 ? pendingRequests : null,
@@ -103,17 +102,17 @@ export default function Sidebar() {
       unit: 'Rede Estadual de Ensino de Sergipe',
       items: [
         {
-          id: 'prof-attendance',
+          path: routes.PROFESSOR.attendance,
           label: 'Frequência Diária & Tópicos',
           icon: ClipboardCheck,
         },
         {
-          id: 'prof-grades',
+          path: routes.PROFESSOR.grades,
           label: 'Lançamento de Notas (Unidades)',
           icon: Award,
         },
         {
-          id: 'prof-exceptional',
+          path: routes.PROFESSOR.exceptional,
           label: 'Solicitar Aula Excepcional',
           icon: CalendarClock,
         },
@@ -163,14 +162,9 @@ export default function Sidebar() {
         <ul className="sidebar-nav-list">
           {currentProfile.items.map((item) => {
             const Icon = item.icon;
-            const isActive = activeTab === item.id;
             return (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  className={`sidebar-nav-btn ${isActive ? 'active' : ''}`}
-                  onClick={() => setActiveTab(item.id)}
-                >
+              <li key={item.path}>
+                <NavLink to={item.path} className="sidebar-nav-btn">
                   <span className="sidebar-nav-btn-left">
                     <Icon size={18} />
                     <span>{item.label}</span>
@@ -178,7 +172,7 @@ export default function Sidebar() {
                   {item.badgeCount !== undefined && item.badgeCount !== null && (
                     <span className="sidebar-nav-badge">{item.badgeCount}</span>
                   )}
-                </button>
+                </NavLink>
               </li>
             );
           })}
